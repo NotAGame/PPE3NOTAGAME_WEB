@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once ('../MODELE/CommentaireModele.class.php');
 require_once ('../MODELE/UserModele.class.php');
 ?>
@@ -23,14 +23,14 @@ if (isset ( $_POST ['email'] ) && isset ( $_POST ['pseudo'] )) {
 		//un seul tuple donc inutile de faire un foreach, on prend juste le tuple courant
 		$idU = $resultU->fetch()->IDU ;
 		
-		if (isset ( $_POST ['radioJV'] ) && isset ( $_POST ['comments'] ) && isset ( $_POST ['agree'] )) {
-			// ajout du commentaire en récupérant l'Id du jeu (ici dans radioJV)
+		if (isset ( $_POST ['listeJV'] ) && isset ( $_POST ['comments'] ) && isset ( $_POST ['agree'] )) {
+			// ajout du commentaire en récupérant l'Id du jeu (ici dans listeJV)
 			$modeleCom = new CommentaireModele ();
 			try {
 				//pour traiter les eventuelles apostrophes dans la chaine des commentaires
 				$chaineCommentaire = addslashes($_POST ['comments']);
 				
-				$nb = $modeleCom->add ( $idU, $_POST ['radioJV'], $chaineCommentaire );
+				$nb = $modeleCom->add ( $idU, $_POST ['listeJV'], $chaineCommentaire );
 				$msgERREUR = "SUCCESS : AJOUT du commentaire reussi";
 			} catch ( PDOException $pdoe ) {
 				// cas ou 2 pseudo ont deja mis un commentaire sur un jeu
