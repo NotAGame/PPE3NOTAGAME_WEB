@@ -45,7 +45,7 @@ class commentaireModele {
 				FROM commentaire c
 				INNER JOIN Users u on u.idU = c.idU
 				where c.idJV = ".$idJ.";
-			" );
+			" ); //MRequête SQL modifiée avant de pouvoir récupérer le pseudo de la personne associée au commentaire
 			return $result;
 		}
 	}
