@@ -45,12 +45,12 @@ $pageIndex->contenu = '<section>
 
 $JVMod = new JeuxVideosModele();
 $listeJV = $JVMod->getJeuxVideoS();
-echo '<select class="validate[required]" name="listeJV">';
+$pageIndex->contenu .= '<select class="validate[required]" name="listeJV">';
 foreach ($listeJV as $unJV){
 	// pour TESTER : echo "UN JEUX VIDEO : </br>";print_r($unJV);
-				$pageIndex->contenu .= '<option value="' . $unJV->IDJV. '">$unJV->NOMJV . '-' . $unJV->ANNEESORTIE.'</option>';
+				$pageIndex->contenu .= '<option value="' . $unJV->IDJV . '">' . $unJV->NOMJV . '-' . $unJV->ANNEESORTIE . '</option>';
 }
-echo '</select>';
+$pageIndex->contenu .= '</select>';
 				
 			$pageIndex->contenu .= '</div>
 			<label>
