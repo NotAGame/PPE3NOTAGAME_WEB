@@ -2,13 +2,13 @@
 require_once ('../Class/Connexion.class.php');
 class commentaireModele {
 	/*
-	 * propriete d'un commentaire conforme � la BDD
+	 * propriete d'un commentaire conforme à la BDD
 	 */
 	
 	// identifiant de connexion utile dans toute la classe
 	private $IDC;
 	public function __construct() {
-		// creation de la connexion afin d'executer les requêtees
+		// creation de la connexion afin d'executer les requÃªtees
 		try {
 			$ConnexionContact = new Connexion ();
 			$this->IDC = $ConnexionContact->IDconnexion;
@@ -29,7 +29,10 @@ class commentaireModele {
 	public function getCommentaireS() {
 		// recupere TOUS LES commentaires de la BDD
 		if ($this->IDC) {
-			$result = $this->IDC->query ( "SELECT * from commentaire;" );
+			$result = $this->IDC->query ("
+				SELECT * FROM commentaire c
+				INNER JOIN Users u on u.idU = c.idU;
+			");
 			return $result;
 		}
 	}
@@ -37,12 +40,17 @@ class commentaireModele {
 	public function getCommentairesIdjv($idJ) {
 		// recupere TOUS LES commentaires  POUR UN JEU
 		if ($this->IDC) {
-			$result = $this->IDC->query ( "SELECT * from commentaire where idjv =".$idJ.";" );
+			$result = $this->IDC->query ( "
+				SELECT c.idJV as IDJV, c.idU as IDU, u.pseudo as PSEUDO, c.libelle as LIBELLE 
+				FROM commentaire c
+				INNER JOIN Users u on u.idU = c.idU
+				where c.idJV = ".$idJ.";
+			" );
 			return $result;
 		}
 	}
 	public function delete($idu,$idjv) {
-		//supression d'un commentaire � l'aide de ces 2 identifiants
+		//supression d'un commentaire à l'aide de ces 2 identifiants
 		if ($this->IDC) {
 			$this->IDC->exec ( "DELETE FROM commentaire WHERE idu = ".$idu ." and idjv = ".$idjv.";");
 		}
