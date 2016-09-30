@@ -18,7 +18,9 @@ else{
 foreach ($liste as $unCom ) {
 // je remplis un tableau JSON avec juste le libelle du commentaire
 		$index= $unCom->IDJV."-".$unCom->IDU; //pour ne pas avoir de doublons
-		$valeur = $unCom->LIBELLE;
+		$valeur = $unCom->PSEUDO;
+		$valeur .= " : ";
+		$valeur .= $unCom->LIBELLE;
 		
 		$json[$index] = ($valeur);
 		
