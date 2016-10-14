@@ -3,6 +3,7 @@ session_start();
 
 require_once ('../Class/PageBase.class.php');
 require_once ('../Class/PageSecurisee.class.php');
+require_once('../MODELE/GenresModele.class.php');
 require_once ('../MODELE/JeuxVideosModele.class.php');
 
 
@@ -16,10 +17,18 @@ $pageConsultationJetC->script ='jquery-3.0.0.min';
 $pageConsultationJetC->script = 'ajaxRecupCommentairesParJeux'; //pour gérer par l'AJAX le clic de la case à cocher et afficher les commentaires correspondants
 
 
+$genresMod = new GenresModele();
+$listeGenres = $genresMod->getGenres();
+
 $JVMod = new JeuxVideosModele();
 $listeJV = $JVMod->getJeuxVideoS(); //requête via le modele
 
-$pageConsultationJetC->contenu = '<section>
+$pageConsultationJetC->contenu = '<p>Filtrer par genre :</p><form action="#" method="get">';
+foreach ($listeGenres as $genre) {
+	$pageConsultationJetC->contenu .= '<input type="checkbox" name="genre' . $genre->id . '" /><label for="genre' . $genre->id . '">' . $genre->libelle . '</label>';
+}
+$pageConsultationJetC->contenu .= '<input type="submit" value="Filtrer" /></form>';
+$pageConsultationJetC->contenu .= '<section>
 					<table>
 					<tr><th>Nom du jeu</th><th>ann&eacute;e de sortie</th><th>&eacute;diteur</th></tr>';
 //parcours du résultat de la requete
