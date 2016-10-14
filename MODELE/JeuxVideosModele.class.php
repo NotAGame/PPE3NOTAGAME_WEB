@@ -31,6 +31,17 @@ class jeuxVideosModele {
 			return $resultID;
 		}
 	}
+	public function getJeuxVideoParGenre($genres)
+	{
+		if ($this->idcJV)
+		{
+			$req = $this->idcJV->prepare("SELECT * FROM jeuxvideos INNER JOIN classer ON (jeuxvideos.id = classer.id) WHERE classer.id IN (?) ORDER BY nomjv, anneesortie");
+			$req->execute([$genres]);
+			$res = $req->fetchAll();
+			$req->closeCursor();
+			return $res;
+		}
+	}
 	public function getJeuxVideoS() {
 		// recupere TOUS LES jeux vidéos de la BDD
 		if ($this->idcJV) {
