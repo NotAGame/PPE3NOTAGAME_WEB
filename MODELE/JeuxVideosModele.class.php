@@ -31,12 +31,13 @@ class jeuxVideosModele {
 			return $resultID;
 		}
 	}
-	public function getJeuxVideoParGenre($genres)
+	public function getJeuxVideoParGenres($genres)
 	{
 		if ($this->idcJV)
 		{
-			$req = $this->idcJV->prepare("SELECT * FROM jeuxvideos INNER JOIN classer ON (jeuxvideos.id = classer.id) WHERE classer.id IN (?) ORDER BY nomjv, anneesortie");
-			$req->execute([$genres]);
+			$qMarks = str_repeat('?,', count($genres) - 1) . '?';
+			$req = $this->idcJV->prepare("SELECT J.IDJV, NOMJV, ANNEESORTIE, EDITEUR FROM jeuxvideos J INNER JOIN classer ON (J.idjv = classer.idjv) WHERE classer.idg IN (" . $qMarks . ") GROUP BY J.IDJV ORDER BY nomjv, anneesortie");
+			$req->execute($genres);
 			$res = $req->fetchAll();
 			$req->closeCursor();
 			return $res;

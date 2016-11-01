@@ -12,6 +12,13 @@ class MyPDO extends PDO {
 		return (parent::exec($sql));
 	}
 	
+	// Méthode execute pour les requêtes préparées.
+	public function execute($sql) {
+		$result = parent::execute($sql);
+		$result->setFetchMode(PDO::FETCH_OBJ); // resultat de la requete retournee sous la forme d'objets
+		return $result;
+	}
+	
 	// méthode query pour les requetes de type SELECT
 	public function query($sql) {
 		$result = parent::query($sql);

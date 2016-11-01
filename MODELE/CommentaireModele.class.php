@@ -31,7 +31,7 @@ class commentaireModele {
 		if ($this->IDC) {
 			$result = $this->IDC->query ("
 				SELECT * FROM commentaire c
-				INNER JOIN Users u on u.idU = c.idU;
+				INNER JOIN users u on u.idU = c.idU;
 			");
 			return $result;
 		}
@@ -43,7 +43,7 @@ class commentaireModele {
 			$result = $this->IDC->query ( "
 				SELECT c.idJV as IDJV, c.idU as IDU, u.pseudo as PSEUDO, c.libelle as LIBELLE 
 				FROM commentaire c
-				INNER JOIN Users u on u.idU = c.idU
+				INNER JOIN users u on u.idU = c.idU
 				where c.idJV = ".$idJ.";
 			" ); //MRequête SQL modifiée avant de pouvoir récupérer le pseudo de la personne associée au commentaire
 			return $result;

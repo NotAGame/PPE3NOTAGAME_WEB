@@ -12,36 +12,30 @@ if (isset ( $_SESSION ['idU'] ) && isset ( $_SESSION ['mdpU'] )) {
 } else {
 	$pageConsultationJetC = new pageBase ( "Consulter les commentaires sur les jeux..." );
 }
-$pageConsultationJetC->style = 'template'; //pour gérer le style de mon tableau
+$pageConsultationJetC->style = 'template'; //pour gÃ©rer le style de mon tableau
 $pageConsultationJetC->script ='jquery-3.0.0.min';
-$pageConsultationJetC->script = 'ajaxRecupCommentairesParJeux'; //pour gérer par l'AJAX le clic de la case à cocher et afficher les commentaires correspondants
+$pageConsultationJetC->script = 'ajaxRecupCommentairesParJeux'; //pour gÃ©rer par l'AJAX le clic de la case Ã  cocher et afficher les commentaires correspondants
+$pageConsultationJetC->script = 'ajaxFiltrerJeux';
 
 
 $genresMod = new GenresModele();
 $listeGenres = $genresMod->getGenres();
 
 $JVMod = new JeuxVideosModele();
-$listeJV = $JVMod->getJeuxVideoS(); //requête via le modele
+$listeJV = $JVMod->getJeuxVideoS(); //requÃªte via le modele
 
-$pageConsultationJetC->contenu = '<p>Filtrer par genre :</p><form action="#" method="get">';
+$pageConsultationJetC->contenu = '<h2>Filtrer par genres :</h2><form id="formFiltrer" action="#" method="get">';
 foreach ($listeGenres as $genre) {
-	$pageConsultationJetC->contenu .= '<input type="checkbox" name="genre' . $genre->id . '" /><label for="genre' . $genre->id . '">' . $genre->libelle . '</label>';
+	$pageConsultationJetC->contenu .= '<input type="checkbox" id="genre' . $genre->id . '" name="genre' . $genre->id . '" /><label for="genre' . $genre->id . '">' . $genre->libelle . '</label>';
 }
 $pageConsultationJetC->contenu .= '<input type="submit" value="Filtrer" /></form>';
 $pageConsultationJetC->contenu .= '<section>
-					<table>
-					<tr><th>Nom du jeu</th><th>ann&eacute;e de sortie</th><th>&eacute;diteur</th></tr>';
-//parcours du résultat de la requete
-foreach ($listeJV as $unJV){
-					$pageConsultationJetC->contenu .= '<tr><td>'.$unJV->NOMJV.'</td><td>'.$unJV->ANNEESORTIE.'</td><td>'.$unJV->EDITEUR.'</td>
-					<td><input type="radio" onclick="jsClickRadioButton();" name="nomidjv"  id="'. $unJV->IDJV.'"  value="'. $unJV->IDJV.'" /></td></tr>';
-}
-$listeJV->closeCursor (); // pour libérer la mémoire occupée par le résultat de la requête
-$listeJV = null; // pour une autre exécution avec cette variable
+					<table id="tabJeux">
+					<tr><th>Nom du jeu</th><th>Ann&eacute;e de sortie</th><th>Ã‰diteur</th></tr>';
 
 $pageConsultationJetC->contenu .= '</table>';
 
-//div qui sert à afficher les commentaires propore à un jeu : rempli à partir du json retourné par la requête AJAX
+//div qui sert Ã  afficher les commentaires propore Ã  un jeu : rempli Ã  partir du json retournÃ© par la requÃªte AJAX
 $pageConsultationJetC->contenu .= '<div id="listeCom"></div></section>';
 
 
