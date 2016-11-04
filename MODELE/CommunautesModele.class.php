@@ -1,7 +1,7 @@
 <?php
 require_once '../Class/Connexion.class.php';
 
-class GenresModele {
+class CommunautesModele {
 
 	private $conn = null;
 
@@ -14,11 +14,11 @@ class GenresModele {
 			echo "<h1>probleme access BDD</h1>";
 		}
 	}
-	public function getGenres()
+	public function getCommunautes()
 	{
 		if ($this->conn)
 		{
-			$req = $this->conn->query("SELECT * FROM genres ORDER BY libelle");
+			$req = $this->conn->query("SELECT * FROM communautes ORDER BY libelle");
 			$res = $req->fetchAll();
 			$req->closeCursor();
 			return $res;

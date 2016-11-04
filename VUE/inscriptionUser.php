@@ -3,6 +3,7 @@ session_start ();
 
 require_once ('../Class/PageBase.class.php');
 require_once ('../Class/PageSecurisee.class.php');
+require_once('../MODELE/CommunautesModele.class.php');
 
 ?>	<script type="text/javascript">	cacher();</script>	<?php
 
@@ -26,10 +27,13 @@ $pageInscriptionUser->contenu = '<section>
 					<span>pseudo : </span>
 					<input  type="text" name="pseudo"  id="pseudo" />
 				</label>
-			<label>
-					<span>communaute : </span>
-					<input  type="text" name="communaute"  id="communaute" />
-				</label>
+				<label for="communaute">Communauté :</label>
+				<select type="text" name="communaute" id="communaute">';
+				$communautesModele = new CommunautesModele();
+				$comms = $communautesModele->getCommunautes();
+				foreach ($comms as $c)
+					$pageInscriptionUser->contenu .= '<option value="' . $c->id . '">' . $c->libelle . '</option>';
+				$pageInscriptionUser->contenu .= '</select>
 			</fieldset>
 				<p><input class="submit" type="submit" value="Valider" /></p>
 			</form>
