@@ -46,7 +46,7 @@ class jeuxVideosModele {
 	public function getJeuxVideoS() {
 		// recupere TOUS LES jeux vidéos de la BDD
 		if ($this->idcJV) {
-			$req ="SELECT * from jeuxvideos ORDER BY nomjv, anneesortie;" ;
+			$req ="SELECT idjv, nomjv, anneesortie, commentaire AVG(note) noteMoy FROM jeuxvideos INNER JOIN noter ON (jeuxvideos.idjv = noter.idjv) GROUP BY nomjv ORDER BY noteMoy";
 			$resultJV = $this->idcJV->query($req);
 			return $resultJV;
 		}
