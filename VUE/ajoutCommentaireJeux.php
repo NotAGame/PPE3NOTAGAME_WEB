@@ -53,7 +53,10 @@ foreach ($listeJV as $unJV){
 $pageIndex->contenu .= '</select>';
 				
 			$pageIndex->contenu .= '</div>
-			<label>
+			<p>Votre note :</p>';
+			for ($i = 0; $i <= 5; $i++)
+				$pageIndex->contenu .= '<input type="radio" name="note" id="note' . $i . '" value="' . $i . '" /><label for="note' . $i . '">' . $i . '</label>';
+			$pageIndex->contenu .= '<label>
 				<span>Commentaire : </span>
 				<textarea class="validate[required,length[10,500]] text-input" name="comments" id="comments" rows="15" cols="10"> </textarea>
 			</label>

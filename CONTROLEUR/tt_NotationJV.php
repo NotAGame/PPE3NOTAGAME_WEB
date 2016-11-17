@@ -1,5 +1,6 @@
 ﻿<?php
 require_once ('../MODELE/CommentaireModele.class.php');
+require_once('../MODELE/NoterModele.class.php');
 require_once ('../MODELE/UserModele.class.php');
 ?>
 <!DOCTYPE html>
@@ -23,8 +24,10 @@ if (isset ( $_POST ['email'] ) && isset ( $_POST ['pseudo'] )) {
 		//un seul tuple donc inutile de faire un foreach, on prend juste le tuple courant
 		$idU = $resultU->fetch()->IDU ;
 		
-		if (isset ( $_POST ['listeJV'] ) && isset ( $_POST ['comments'] ) && isset ( $_POST ['agree'] )) {
+		if (isset ( $_POST ['listeJV'] ) && isset ( $_POST ['comments'] ) && isset($_POST['note']) && filter_var($_POST['note'], FILTER_VALIDATE_INT) && $_POST['note'] >= 0 && $_POST['note'] <= 5 && isset ( $_POST ['agree'] )) {
 			// ajout du commentaire en récupérant l'Id du jeu (ici dans listeJV)
+			$modeleNoter = new NoterModele();
+			$modeleNoter->noterJeu($_POST['listeJV'], $idU, $_POST['note']);
 			$modeleCom = new CommentaireModele ();
 			try {
 				//pour traiter les eventuelles apostrophes dans la chaine des commentaires

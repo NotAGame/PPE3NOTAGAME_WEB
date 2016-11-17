@@ -43,10 +43,20 @@ class jeuxVideosModele {
 			return $res;
 		}
 	}
+
+	public function getJeuxVideoParNotes() {
+		// recupere TOUS LES jeux vidéos de la BDD
+		if ($this->idcJV) {
+			$req ="SELECT jeuxvideos.idjv, nomjv, anneesortie, description, AVG(note) noteMoy FROM jeuxvideos INNER JOIN noter ON (jeuxvideos.idjv = noter.idjv) GROUP BY nomjv ORDER BY noteMoy";
+			$resultJV = $this->idcJV->query($req);
+			return $resultJV;
+		}
+	}
+
 	public function getJeuxVideoS() {
 		// recupere TOUS LES jeux vidéos de la BDD
 		if ($this->idcJV) {
-			$req ="SELECT idjv, nomjv, anneesortie, commentaire AVG(note) noteMoy FROM jeuxvideos INNER JOIN noter ON (jeuxvideos.idjv = noter.idjv) GROUP BY nomjv ORDER BY noteMoy";
+			$req ="SELECT * FROM jeuxvideos ORDER BY nomjv AND anneesortie";
 			$resultJV = $this->idcJV->query($req);
 			return $resultJV;
 		}
