@@ -5,7 +5,14 @@ require_once ('../Class/PageBase.class.php');
 require_once ('../Class/PageSecurisee.class.php');
 require_once('../MODELE/CommunautesModele.class.php');
 
-?>	<script type="text/javascript">	cacher();</script>	<?php
+
+?>	
+	
+<?php
+
+
+
+
 
 if (isset ( $_SESSION ['idU'] ) && isset ( $_SESSION ['mdpU'] )) {
 	$pageInscriptionUser = new pageSecurisee ( "Inscription d'un utilisateur..." );
@@ -13,20 +20,25 @@ if (isset ( $_SESSION ['idU'] ) && isset ( $_SESSION ['mdpU'] )) {
 	$pageInscriptionUser = new pageBase ( "Inscription d'un utilisateur..." );
 }
 
+$pageInscriptionUser->script.='jquery';
+$pageInscriptionUser->script.='jquery.validate';
+$pageInscriptionUser->script.='validate';
+
 
 $pageInscriptionUser->contenu = '<section>
 		<article>
 			<form id="formInscriptionUser" method="post" action="../CONTROLEUR/tt_InscriptionUser.php">
 			<fieldset>
 				<legend>Utilisateur</legend>
-				<label>
+				<div>
 					<span>Email : </span>
-					<input type="text" name="email" id="email"  />
-				</label>		
-				<label>
+					<input type="text" name="email" id="email"/>
+				</div>		
+				<div>
 					<span>pseudo : </span>
-					<input  type="text" name="pseudo"  id="pseudo" />
-				</label>
+					<input  type="text" name="pseudo"  id="pseudo"/>
+				</div>
+				<div>
 				<label for="communaute">Communauté :</label>
 				<select type="text" name="communaute" id="communaute">';
 				$communautesModele = new CommunautesModele();
@@ -34,8 +46,9 @@ $pageInscriptionUser->contenu = '<section>
 				foreach ($comms as $c)
 					$pageInscriptionUser->contenu .= '<option value="' . $c->id . '">' . $c->libelle . '</option>';
 				$pageInscriptionUser->contenu .= '</select>
+				</div>
 			</fieldset>
-				<p><input class="submit" type="submit" value="Valider" /></p>
+				<p><input class="submit" type="submit" id="submit" value="Valider" /></p>
 			</form>
 		</article>		
 	</section>';

@@ -11,7 +11,7 @@ require_once ('../MODELE/UserModele.class.php');
 
 $msgERREUR = "";
 
-if (isset ( $_POST ['email'] ) && isset ( $_POST ['pseudo'] ) && isset ( $_POST ['communaute'] )) {
+if (isset ( $_POST ['email'] ) && !empty($_POST ['email']) && isset ( $_POST ['pseudo'] ) && !empty($_POST ['pseudo']) && isset ( $_POST ['communaute'] )) {
 	$modeleUser = new UserModele ();
 	try {
 		// récupération de l(identifiant de l'utlisateur avec son email et son pseudo
