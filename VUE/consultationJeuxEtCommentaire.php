@@ -26,7 +26,7 @@ $listeGenres = $genresMod->getGenres();
 $JVMod = new JeuxVideosModele();
 $listeJV = $JVMod->getJeuxVideoS(); //requête via le modele
 
-$pageConsultationJetC->contenu = '<h2>Filtrer par genres :</h2><form id="formFiltrer" action="#" method="get">';
+$pageConsultationJetC->contenu = '<h2>Filtrer :</h2><form id="formFiltrer" action="#" method="get">';
 foreach ($listeGenres as $genre) {
 	$pageConsultationJetC->contenu .= '<input type="checkbox" id="genre' . $genre->id . '" name="genre' . $genre->id . '" /><label for="genre' . $genre->id . '">' . $genre->libelle . '</label>';
 }

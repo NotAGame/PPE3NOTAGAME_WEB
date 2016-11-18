@@ -13,17 +13,24 @@ function jsFiltrerJeux(){
 		var genres = '';
 		$('#formFiltrer input:checked').each(function()
 		{
-			if (params != '')
-				params += ',';
-			params += $(this).attr('name').substring(5);
+			if (genres != '')
+				genres += ',';
+			genres += $(this).attr('name').substring(5);
 		});
+
+		var support = $('#support').val();
+		var editeur = $('#editeur').val();
+
 		//APPEL du fichier de traitement (ici : tt_FiltrerJeuxVideo.php) qui va récupérer les données et les renvoyer en JSON à cette page
 		var filterDataRequest = $.ajax({
-			url: '../CONTROLEUR/tt_FiltrerJeuxVideo.php,
+			url: '../CONTROLEUR/tt_FiltrerJeuxVideo.php',
 			type: 'GET',
-			data: { genres: params },
+			data: { genres: genres , support: support , editeur : editeur },
 			dataType: 'json'
 		});
+
+
+
   
 		
 		//une fois les donnees réceptionnées en JSON

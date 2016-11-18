@@ -44,6 +44,57 @@ class jeuxVideosModele {
 		}
 	}
 
+	public function getJeuxVideoParSupport($support)
+	{
+		if ($this->idcJV)
+		{
+			$qMarks = str_repeat('?,', count($support) - 1) . '?';
+			$req = $this->idcJV->prepare("SELECT J.IDJV, NOMJV, ANNEESORTIE, EDITEUR FROM jeuxvideos J INNER JOIN compatible ON (J.idjv = compatible.idjv) WHERE compatible.ids IN (" . $qMarks . ") GROUP BY J.IDJV ORDER BY nomjv, anneesortie");
+			$req->execute($support);
+			$res = $req->fetchAll();
+			$req->closeCursor();
+			return $res;
+		}
+	}
+
+	public function getJeuxVideoParEditeur($editeur)
+	{
+		if ($this->idcJV)
+		{
+			$qMarks = str_repeat('?,', count($editeur) - 1) . '?';
+			$req = $this->idcJV->prepare("SELECT J.IDJV, NOMJV, ANNEESORTIE, EDITEUR FROM jeuxvideos J WHERE editeur = (" . $qMarks . ") GROUP BY J.IDJV ORDER BY nomjv, anneesortie");
+			$req->execute($editeur);
+			$res = $req->fetchAll();
+			$req->closeCursor();
+			return $res;
+		}
+	}
+
+	public function getJeuxVideoParGenresEtSupport($genres,$support)
+	{
+		
+	}
+
+	public function getJeuxVideoParGenresEtEditeur($genres,$editeur)
+	{
+
+	}
+
+	public function getJeuxVideoParSupportEtEditeur($support,$editeur)
+	{
+
+	}
+
+	public function getJeuxVideoParSupportEtEditeurEtGenre($support,$editeur,$genres)
+	{
+
+	}
+
+
+
+
+
+
 	public function getJeuxVideoParNotes() {
 		// recupere TOUS LES jeux vidéos de la BDD
 		if ($this->idcJV) {
