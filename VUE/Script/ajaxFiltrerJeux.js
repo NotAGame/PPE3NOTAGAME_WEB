@@ -10,19 +10,18 @@ $(document).ready(function() {
 	
 function jsFiltrerJeux(){
 		console.log("ready!");
-		var params = '';
+		var genres = '';
 		$('#formFiltrer input:checked').each(function()
 		{
-			if (params == '')
-				params += '?genres=';
-			else
+			if (params != '')
 				params += ',';
 			params += $(this).attr('name').substring(5);
 		});
 		//APPEL du fichier de traitement (ici : tt_FiltrerJeuxVideo.php) qui va récupérer les données et les renvoyer en JSON à cette page
 		var filterDataRequest = $.ajax({
-			url: '../CONTROLEUR/tt_FiltrerJeuxVideo.php' + params,
+			url: '../CONTROLEUR/tt_FiltrerJeuxVideo.php,
 			type: 'GET',
+			data: { genres: params },
 			dataType: 'json'
 		});
   
