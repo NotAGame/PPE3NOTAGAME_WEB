@@ -1,7 +1,7 @@
 <?php
 require_once '../Class/Connexion.class.php';
 
-class ConstructeurModele {
+class EditeurModele {
 
 	private $conn = null;
 
@@ -14,11 +14,11 @@ class ConstructeurModele {
 			echo "<h1>probleme access BDD</h1>";
 		}
 	}
-	public function getConstructeurs()
+	public function getEditeurs()
 	{
 		if ($this->conn)
 		{
-			$req = $this->conn->query("SELECT * FROM constructeur ORDER BY NOMC");
+			$req = $this->conn->query("SELECT editeur FROM jeuxvideos ORDER BY editeur");
 			$res = $req->fetchAll();
 			$req->closeCursor();
 			return $res;
